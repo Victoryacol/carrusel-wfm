@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrusel de Valores Corporativos WFM</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f5f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .page-shell {
+            display: flex;
+            gap: 24px;
+            width: 100%;
+            max-width: 1240px;
+            align-items: stretch;
+        }
+
+        .brand-panel {
+            flex: 0 0 280px;
+            background: linear-gradient(180deg, #ffffff 0%, #f2f6f3 100%);
+            border-radius: 32px;
+            box-shadow: 0 24px 70px rgba(36, 119, 75, 0.08);
+            padding: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .brand-logo {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 260px;
+            border-radius: 28px;
+            background: radial-gradient(circle at top, rgba(29, 105, 67, 0.14), transparent 55%),
+                        linear-gradient(180deg, #ffffff 0%, #e7f1ea 100%);
+            padding: 20px;
+        }
+
+        .brand-logo img {
+            max-width: 100%;
+            max-height: 180px;
+            object-fit: contain;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 30px 36px 26px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .carousel-viewport {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 0;
+            transition: transform 0.42s cubic-bezier(0.25, 1, 0.5, 1);
+            width: 100%;
+        }
+
+        .slide {
+            flex: 0 0 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            width: 100%;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fbf8 100%);
+            border-radius: 32px;
+            padding: 18px;
+            box-shadow: 0 15px 35px rgba(28, 79, 52, 0.08);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 380px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 68px;
+            height: 68px;
+            background: rgba(112, 73, 148, 0.1);
+            border-radius: 22px;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 24px;
+            object-fit: contain;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #ffffff;
+            border: 1px solid #e1e4e8;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+            z-index: 10;
+            transition: all 0.2s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .nav-button svg {
+            width: 20px;
+            height: 20px;
+            fill: #444444;
+        }
+
+        .nav-button.prev { left: -24px; }
+        .nav-button.next { right: -24px; }
+
+        .dots-layout {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 28px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #d1d5db;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .dot.active {
+            background-color: #704994;
+            transform: scale(1.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-shell">
+        <aside class="brand-panel">
+            <div class="brand-logo">
+                <img src="Logo_WFM.png" alt="WFM logo">
+            </div>
+        </aside>
+
+        <div class="carousel-container">
+            <button class="nav-button prev" id="btnPrev" aria-label="Anterior">
+                <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            </button>
+
+            <div class="carousel-viewport">
+                <div class="carousel-track" id="carouselTrack">
+
+                    <div class="slide">
+                        <div class="card">
+                            <img src="Bienvenida.png" alt="Bienvenida a WFM">
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="card">
+                            <img src="Gestion.png" alt="Gestiona tus novedades">
+                        </div>
+                    </div>
+                
+                    <div class="slide">
+                        <div class="card">
+                            <img src="Cultura.png" alt="Cerca Siempre">
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="card">
+                            <img src="Banners_Femsa.png" alt="Jugamos para ganar">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="nav-button next" id="btnNext" aria-label="Siguiente">
+                <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </button>
+
+            <div class="dots-layout" id="dotsLayout"></div>
+        </div>
+    </div>
+
+    <script>
+        const track = document.getElementById('carouselTrack');
+        const btnPrev = document.getElementById('btnPrev');
+        const btnNext = document.getElementById('btnNext');
+        const dotsLayout = document.getElementById('dotsLayout');
+        const slides = document.querySelectorAll('.slide');
+        
+        let indexActual = 0;
+        const pasosTotales = slides.length;
+        let autoplayTimer = null;
+
+        // Generar puntos de navegación abajo
+        for (let i = 0; i < pasosTotales; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => desplazarAIndex(i));
+            dotsLayout.appendChild(dot);
+        }
+
+        const todosLosDots = document.querySelectorAll('.dot');
+
+        function actualizarPosicion() {
+            const anchoTarjeta = slides[0].getBoundingClientRect().width;
+            track.style.transform = `translateX(-${indexActual * anchoTarjeta}px)`;
+            todosLosDots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === indexActual);
+            });
+        }
+
+        function iniciarAutoplay() {
+            clearInterval(autoplayTimer);
+            autoplayTimer = setInterval(() => {
+                if (indexActual < pasosTotales - 1) {
+                    indexActual++;
+                } else {
+                    indexActual = 0;
+                }
+                actualizarPosicion();
+            }, 10000);
+        }
+
+        btnNext.addEventListener('click', () => {
+            if (indexActual < pasosTotales - 1) {
+                indexActual++;
+            } else {
+                indexActual = 0;
+            }
+            actualizarPosicion();
+            iniciarAutoplay();
+        });
+
+        btnPrev.addEventListener('click', () => {
+            if (indexActual > 0) {
+                indexActual--;
+            } else {
+                indexActual = pasosTotales - 1;
+            }
+            actualizarPosicion();
+            iniciarAutoplay();
+        });
+
+        function desplazarAIndex(idx) {
+            indexActual = idx;
+            actualizarPosicion();
+            iniciarAutoplay();
+        }
+
+        actualizarPosicion();
+        iniciarAutoplay();
+
+        window.addEventListener('resize', actualizarPosicion);
+    </script>
+</body>
+</html>
