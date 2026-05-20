@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrusel de Valores Corporativos WFM</title>
+    <title>Carrusel Compacto WFM</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,32 +12,33 @@
         }
 
         body {
-            background-color: #f5f5f7;
+            background-color: transparent; /* Se adapta al fondo de SharePoint */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         .page-shell {
             display: flex;
-            gap: 24px;
+            gap: 16px;
             width: 100%;
-            max-width: 1240px;
-            align-items: stretch;
+            max-width: 960px; /* Reducido para una visualización más compacta */
+            align-items: center;
         }
 
         .brand-panel {
-            flex: 0 0 280px;
-            background: linear-gradient(180deg, #ffffff 0%, #f2f6f3 100%);
-            border-radius: 32px;
-            box-shadow: 0 24px 70px rgba(36, 119, 75, 0.08);
-            padding: 28px;
+            flex: 0 0 180px; /* Más angosto para no robar protagonismo */
+            background: linear-gradient(180deg, #ffffff 0%, #f4f7f5 100%);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(36, 119, 75, 0.05);
+            padding: 16px;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 240px; /* Altura fija alineada con el carrusel */
         }
 
         .brand-logo {
@@ -45,31 +46,36 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 260px;
-            border-radius: 28px;
-            background: radial-gradient(circle at top, rgba(29, 105, 67, 0.14), transparent 55%),
-                        linear-gradient(180deg, #ffffff 0%, #e7f1ea 100%);
-            padding: 20px;
+            height: 100%;
+            border-radius: 14px;
+            background: radial-gradient(circle at top, rgba(29, 105, 67, 0.08), transparent 60%),
+                        linear-gradient(180deg, #ffffff 0%, #edf3ef 100%);
+            padding: 10px;
         }
 
         .brand-logo img {
             max-width: 100%;
-            max-height: 180px;
+            max-height: 120px;
             object-fit: contain;
         }
 
         .carousel-container {
             position: relative;
-            width: 100%;
+            flex: 1;
             background: #ffffff;
-            border-radius: 32px;
-            padding: 30px 36px 26px;
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+            padding: 16px 24px 12px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+            height: 240px; /* Reducción drástica de altura vertical */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .carousel-viewport {
             overflow: hidden;
             width: 100%;
+            height: 175px; /* Altura dedicada exclusivamente al banner */
         }
 
         .carousel-track {
@@ -77,6 +83,7 @@
             gap: 0;
             transition: transform 0.42s cubic-bezier(0.25, 1, 0.5, 1);
             width: 100%;
+            height: 100%;
         }
 
         .slide {
@@ -84,41 +91,28 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100%;
         }
 
         .card {
             width: 100%;
-            background: linear-gradient(180deg, #ffffff 0%, #f8fbf8 100%);
-            border-radius: 32px;
-            padding: 18px;
-            box-shadow: 0 15px 35px rgba(28, 79, 52, 0.08);
+            height: 100%;
+            background: transparent;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 380px;
             overflow: hidden;
             position: relative;
         }
 
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 14px;
-            right: 14px;
-            width: 68px;
-            height: 68px;
-            background: rgba(112, 73, 148, 0.1);
-            border-radius: 22px;
-        }
+        /* Se eliminó el recuadro decorativo morado de fondo para limpiar el diseño */
 
         .card img {
             width: 100%;
-            height: auto;
+            height: 100%;
             display: block;
-            border-radius: 24px;
-            object-fit: contain;
-            position: relative;
-            z-index: 1;
+            border-radius: 12px;
+            object-fit: contain; /* Garantiza que tus banners no se deformen */
         }
 
         .nav-button {
@@ -127,14 +121,14 @@
             transform: translateY(-50%);
             background-color: #ffffff;
             border: 1px solid #e1e4e8;
-            width: 46px;
-            height: 46px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             z-index: 10;
             transition: all 0.2s ease;
         }
@@ -145,25 +139,25 @@
         }
 
         .nav-button svg {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             fill: #444444;
         }
 
-        .nav-button.prev { left: -24px; }
-        .nav-button.next { right: -24px; }
+        .nav-button.prev { left: -14px; }
+        .nav-button.next { right: -14px; }
 
         .dots-layout {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
-            margin-top: 28px;
+            gap: 8px;
+            margin-top: 8px;
         }
 
         .dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background-color: #d1d5db;
             border-radius: 50%;
             cursor: pointer;
@@ -171,8 +165,8 @@
         }
 
         .dot.active {
-            background-color: #704994;
-            transform: scale(1.3);
+            background-color: #283276; /* Ajustado al azul corporativo de tu paleta */
+            transform: scale(1.2);
         }
     </style>
 </head>
@@ -238,7 +232,6 @@
         const pasosTotales = slides.length;
         let autoplayTimer = null;
 
-        // Generar puntos de navegación abajo
         for (let i = 0; i < pasosTotales; i++) {
             const dot = document.createElement('div');
             dot.classList.add('dot');
