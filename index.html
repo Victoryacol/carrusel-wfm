@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrusel Compacto WFM</title>
+    <title>Carrusel WFM Panorámico</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,50 +12,50 @@
         }
 
         body {
-            background-color: transparent; /* Se adapta al fondo de SharePoint */
+            background-color: transparent;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 10px;
+            padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden;
         }
 
         .page-shell {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             width: 100%;
-            max-width: 960px; /* Reducido para una visualización más compacta */
-            align-items: center;
+            max-width: 100%; /* Ahora es completamente fluido y aprovecha el ancho de SharePoint */
+            align-items: stretch;
+            padding: 4px;
         }
 
         .brand-panel {
-            flex: 0 0 180px; /* Más angosto para no robar protagonismo */
-            background: linear-gradient(180deg, #ffffff 0%, #f4f7f5 100%);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(36, 119, 75, 0.05);
-            padding: 16px;
+            flex: 0 0 160px; /* Tamaño optimizado para el logo lateral */
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+            padding: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 240px; /* Altura fija alineada con el carrusel */
         }
 
         .brand-logo {
             width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
-            border-radius: 14px;
-            background: radial-gradient(circle at top, rgba(29, 105, 67, 0.08), transparent 60%),
-                        linear-gradient(180deg, #ffffff 0%, #edf3ef 100%);
-            padding: 10px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, #ffffff 0%, #f4f8f5 100%);
+            padding: 8px;
         }
 
         .brand-logo img {
             max-width: 100%;
-            max-height: 120px;
+            max-height: 110px;
             object-fit: contain;
         }
 
@@ -63,10 +63,9 @@
             position: relative;
             flex: 1;
             background: #ffffff;
-            border-radius: 20px;
-            padding: 16px 24px 12px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
-            height: 240px; /* Reducción drástica de altura vertical */
+            border-radius: 16px;
+            padding: 8px; /* Reducción de relleno para maximizar la imagen */
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -75,15 +74,14 @@
         .carousel-viewport {
             overflow: hidden;
             width: 100%;
-            height: 175px; /* Altura dedicada exclusivamente al banner */
+            height: auto;
         }
 
         .carousel-track {
             display: flex;
             gap: 0;
-            transition: transform 0.42s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             width: 100%;
-            height: 100%;
         }
 
         .slide {
@@ -91,73 +89,69 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
         }
 
         .card {
             width: 100%;
-            height: 100%;
             background: transparent;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            position: relative;
         }
-
-        /* Se eliminó el recuadro decorativo morado de fondo para limpiar el diseño */
 
         .card img {
             width: 100%;
-            height: 100%;
+            height: auto;
+            max-height: 250px; /* Control de altura máxima de la imagen para que no rompa el diseño */
             display: block;
-            border-radius: 12px;
-            object-fit: contain; /* Garantiza que tus banners no se deformen */
+            border-radius: 8px;
+            object-fit: initial; /* Permite que la imagen tome la proporción fluida del banner real */
         }
 
         .nav-button {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.9);
             border: 1px solid #e1e4e8;
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             z-index: 10;
             transition: all 0.2s ease;
         }
 
         .nav-button:hover {
-            background-color: #f8f9fa;
-            transform: translateY(-50%) scale(1.05);
+            background-color: #ffffff;
+            transform: translateY(-50%) scale(1.1);
         }
 
         .nav-button svg {
-            width: 16px;
-            height: 16px;
-            fill: #444444;
+            width: 14px;
+            height: 14px;
+            fill: #283276;
         }
 
-        .nav-button.prev { left: -14px; }
-        .nav-button.next { right: -14px; }
+        .nav-button.prev { left: 4px; }
+        .nav-button.next { right: 4px; }
 
         .dots-layout {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
-            margin-top: 8px;
+            gap: 6px;
+            margin-top: 6px;
         }
 
         .dot {
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             background-color: #d1d5db;
             border-radius: 50%;
             cursor: pointer;
@@ -165,7 +159,7 @@
         }
 
         .dot.active {
-            background-color: #283276; /* Ajustado al azul corporativo de tu paleta */
+            background-color: #283276;
             transform: scale(1.2);
         }
     </style>
